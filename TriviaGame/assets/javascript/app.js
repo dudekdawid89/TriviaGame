@@ -82,12 +82,16 @@ var index2 = Math.floor(Math.random()*4);
 var index3 = Math.floor(Math.random()*4);
 var index4 = Math.floor(Math.random()*4);
 var index5 = Math.floor(Math.random()*4);
-var remainingTime = 120;
+var remainingTime = 121;
+var intervalId;
+
+
 
 $("#btn").on("click", function() {
     $(this).hide();
     showTrivia();
     myFunction();
+    $(".TriviaLogo").hide();
    
    
 })
@@ -95,7 +99,7 @@ $("#btn").on("click", function() {
 
 function showTrivia(){
 
-    $("#remainingTime").text("Remaining Time: "+remainingTime );
+    run(); 
 
     $("#showQuestion1").html(questionAnswer[index].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index].answer.length; i++){
@@ -140,6 +144,7 @@ function showTrivia(){
         $("#showPossibleAnswers5").append(button5);
     }
     $(".option").on("click",function(){
+        run();
    var getIndex= $(this).attr("data-index")
    var getButtonText= $(this).text();
    if(getButtonText===questionAnswer[getIndex].rightAnswer){
@@ -162,8 +167,32 @@ function showResults(){
 
 
 function myFunction() {
-    setTimeout(function(){ showResults(); }, 3000);
-    setTimeout(function(){ $(".container").hide(); }, 3000);
+    setTimeout(function(){ showResults(); }, 120*1000);
+    setTimeout(function(){ $(".container").hide(); }, 120*1000);
    
   }
 
+  function run() {
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
+  }
+
+  function decrement() {
+
+
+    remainingTime--;
+
+    //  Show the number in the #show-number tag.
+    $("#remainingTime").text("Remaining Time: "+remainingTime );
+
+
+    //  Once number hits zero...
+    if (remainingTime === 0) {
+
+      //  ...run the stop function.
+      stop();
+
+      //  Alert the user that time is up.
+      alert("Time Up!");
+    }
+  }
