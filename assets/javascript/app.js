@@ -1,4 +1,4 @@
-
+// variable with Q&A
 var questionAnswer = [
     {
         question: "In the year 1900 in the U.S. what were the most popular first names given to boy and girl babies?",
@@ -73,46 +73,37 @@ var questionAnswer = [
         animate: ""
     }
 ]
-
 var correctAnswer = 0;
 var incorrectAnswer = 0;
 var unanswered = 0;
-var index = Math.floor(Math.random()*4);
-var index2 = Math.floor(Math.random()*4);
-var index3 = Math.floor(Math.random()*4);
-var index4 = Math.floor(Math.random()*4);
-var index5 = Math.floor(Math.random()*4);
-var remainingTime = 121;
+var index = Math.floor(Math.random()*4); //variable to generate random question
+var index2 = Math.floor(Math.random()*4);//variable to generate random question
+var index3 = Math.floor(Math.random()*4);//variable to generate random question
+var index4 = Math.floor(Math.random()*4);//variable to generate random question
+var index5 = Math.floor(Math.random()*4);//variable to generate random question
+var remainingTime = 41; 
 var intervalId;
-
-
-
+//onclick funtion for start button
 $("#btn").on("click", function() {
     $(this).hide();
     showTrivia();
     myFunction();
     $(".TriviaLogo").hide();
-   
-   
 })
-
-
+//function to display questions and answers
 function showTrivia(){
-
     run(); 
-
     $("#showQuestion1").html(questionAnswer[index].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index].answer.length; i++){
-        var button =  $('<button class="option btn btn-info btn-lg">');
+        var button =  $('<button class="option btn btn-info btn-sm">');
         button.attr("value", questionAnswer[index].answer[i]); 
         button.attr("data-index", index); 
         button.text(questionAnswer[index].answer[i]); 
         $("#showPossibleAnswers1").append(button);
-        
     }
     $("#showQuestion2").html(questionAnswer[index2].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index2].answer.length; i++){
-        var button2 =  $('<button class="option btn btn-info btn-lg">');
+        var button2 =  $('<button class="option btn btn-info btn-sm">');
         button2.attr("value", questionAnswer[index2].answer[i]); 
         button2.attr("data-index", index2); 
         button2.text(questionAnswer[index2].answer[i]);  
@@ -120,7 +111,7 @@ function showTrivia(){
     }
     $("#showQuestion3").html(questionAnswer[index3].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index3].answer.length; i++){
-        var button3 =  $('<button class="option btn btn-info btn-lg">');
+        var button3 =  $('<button class="option btn btn-info btn-sm">');
         button3.attr("value", questionAnswer[index3].answer[i]); 
         button3.attr("data-index", index3); 
         button3.text(questionAnswer[index3].answer[i]);  
@@ -128,71 +119,67 @@ function showTrivia(){
     }   
     $("#showQuestion4").html(questionAnswer[index4].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index4].answer.length; i++){
-        var button4 =  $('<button class="option btn btn-info btn-lg">');
+        var button4 =  $('<button class="option btn btn-info btn-sm">');
         button4.attr("value", questionAnswer[index4].answer[i]); 
         button4.attr("data-index", index4); 
         button4.text(questionAnswer[index4].answer[i]);  
         $("#showPossibleAnswers4").append(button4);
-        
     }
     $("#showQuestion5").html(questionAnswer[index5].question+"<br><br>");
     for(var i = 0; i < questionAnswer[index5].answer.length; i++){
-        var button5 =  $('<button class="option btn btn-info btn-lg">');
+        var button5 =  $('<button class="option btn btn-info btn-sm">');
         button5.attr("value", questionAnswer[index5].answer[i]); 
         button5.attr("data-index", index5); 
         button5.text(questionAnswer[index5].answer[i]);  
         $("#showPossibleAnswers5").append(button5);
     }
+    //function onclick to guess answers
     $(".option").on("click",function(){
         run();
    var getIndex= $(this).attr("data-index")
    var getButtonText= $(this).text();
    if(getButtonText===questionAnswer[getIndex].rightAnswer){
     correctAnswer++;
+    $(this).addClass('btn-success').removeClass('btn-info');
    }
- else{
+ else if(getButtonText!=questionAnswer[getIndex].rightAnswer){
     incorrectAnswer++;
+    $(this).addClass('btn-danger').removeClass('btn-info');
  }
-
-
+ else if(getButtonText===-1){
+    unanswered++;
+ }
+ 
     })
 }
-
+//function for diplay results
 function showResults(){
     $("#results").append("Correct Answers: "+correctAnswer+"<br>");
     $("#results").append("Incorrect Answers: "+incorrectAnswer+"<br>");
     $("#results").append("Unanswered: "+unanswered+"<br>");
 }
-
-
-
-function myFunction() {
-    setTimeout(function(){ showResults(); }, 120*1000);
-    setTimeout(function(){ $(".container").hide(); }, 120*1000);
+//function for hide Q&A
+function myFunction(){
+    // setTimeout(function(){ showResults(); }, 40*1000);
+    setTimeout(function(){ $(".container").hide(); }, 40*1000);
    
-  }
-
-  function run() {
+}
+//function for run time
+function run(){
     clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
-  }
-
-  function decrement() {
-
-
+}
+//function for decrement time
+  function decrement(){
     remainingTime--;
-
-    //  Show the number in the #show-number tag.
     $("#remainingTime").text("Remaining Time: "+remainingTime );
+    if (remainingTime === 0){
+        stop();
+        alert("Time Up!");
+        showResults();
 
-
-    //  Once number hits zero...
-    if (remainingTime === 0) {
-
-      //  ...run the stop function.
-      stop();
-
-      //  Alert the user that time is up.
-      alert("Time Up!");
     }
+  }
+  function stop() {
+    clearInterval(intervalId);
   }
