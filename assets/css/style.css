@@ -3,11 +3,7 @@
     align-items: center;
     justify-content: center;
 }  */
-#showQuestion1,
-#showQuestion2,
-#showQuestion3,
-#showQuestion4,
-#showQuestion5
+.QuestionClass
 
 {
     text-align: center;
@@ -15,11 +11,7 @@
     font-size: 22px;
     color: white;
 }
-#showPossibleAnswers1,
-#showPossibleAnswers2,
-#showPossibleAnswers3,
-#showPossibleAnswers4,
-#showPossibleAnswers5{
+.AnswerClass{
 
     text-align: center;
     font-size: 20px;
