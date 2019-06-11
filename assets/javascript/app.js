@@ -117,6 +117,8 @@ function showTrivia(){
     //     $("#showPossibleAnswers5").append(button5);
     // }
     //function onclick to guess answers
+    
+    
     $(".option").on("click",function(){
         run();
    var getIndex= $(this).attr("data-index")
@@ -129,10 +131,7 @@ function showTrivia(){
     incorrectAnswer++;
     $(this).addClass('btn-danger').removeClass('btn-dark');
  }
- else if(getButtonText===-1){
-    unanswered++;
- }
- 
+
     })
 }
 //function for diplay results
@@ -146,7 +145,7 @@ function showResults(){
 //function for hide Q&A
 function myFunction(){
     // setTimeout(function(){ showResults(); }, 40*1000);
-    setTimeout(function(){ $(".container").hide(); }, 40*1000);
+    setTimeout(function(){ $("#showQA").hide(); }, 40*1000);
    
 }
 //function for run time
